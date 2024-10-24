@@ -16,17 +16,6 @@ The lottery scheduling algorithm operates as follows:
 - The assignment of CPU time is limited to users with UIDs greater than 1000 (normal Linux user processes). System users and root can have a higher priority.
 - The scheduler also updates a process's ticket number based on its user's process count changes, using the `setuid()` system call to adjust the process's UID when necessary.
 
-## Implementation Steps
-1. **Forking Processes**: Implement the logic to assign tickets to processes during forking.
-2. **Random Ticket Selection**: Develop the scheduling mechanism to randomly select a process based on its ticket count.
-3. **Ticket Adjustment**: Integrate the rules for ticket loss and gain based on CPU time.
-4. **User-Based Scheduling**: Ensure that user-based constraints are applied to the scheduling algorithm.
-5. **Testing**: Conduct thorough testing to validate the functionality of the lottery scheduler.
-
-## Usage
-- Compile the modified Linux kernel with the lottery scheduling algorithm implemented.
-- Boot the system using the modified kernel and create test processes to observe the behavior of the scheduler.
-
 ## Acknowledgments
 - The course materials and resources from CSE 331: Operating Systems.
 
