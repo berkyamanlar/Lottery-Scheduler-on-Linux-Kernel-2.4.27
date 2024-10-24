@@ -1,2 +1,32 @@
-# Lottery-Scheduler-on-Linux-Kernel-2.4.27
- 
+# Lottery Scheduler Algorithm for Linux Kernel 2.4.27
+
+## Overview
+This project was developed as a term project for the **CSE 331: Operating Systems** course. The goal of this project is to implement a lottery scheduling algorithm within the Linux Kernel version 2.4.27. This algorithm provides a probabilistic approach to CPU scheduling by assigning tickets to processes, allowing those with more tickets a higher chance of being selected for execution.
+
+## Lottery Scheduling Algorithm Description
+The lottery scheduling algorithm operates as follows:
+
+- When a process is forked, it is assigned an initial number of tickets, defined as **E = 5**.
+- The scheduler randomly selects a ticket number from the available tickets of runnable processes. The process holding the selected ticket is scheduled to run next.
+- Each process can hold at most **A = 10** tickets and at least **B = 1** ticket.
+- The ticket allocation is dynamic based on the process's CPU usage:
+  - If **C = 10 ms** or less has elapsed since the process last used the CPU, it loses one ticket (unless it already has **B** tickets).
+  - If more than **D = 100 ms** has elapsed, the process gains one ticket (unless it already has **A** tickets).
+  - If the elapsed time is between **C** and **D**, the process retains its current ticket count.
+- The assignment of CPU time is limited to users with UIDs greater than 1000 (normal Linux user processes). System users and root can have a higher priority.
+- The scheduler also updates a process's ticket number based on its user's process count changes, using the `setuid()` system call to adjust the process's UID when necessary.
+
+## Implementation Steps
+1. **Forking Processes**: Implement the logic to assign tickets to processes during forking.
+2. **Random Ticket Selection**: Develop the scheduling mechanism to randomly select a process based on its ticket count.
+3. **Ticket Adjustment**: Integrate the rules for ticket loss and gain based on CPU time.
+4. **User-Based Scheduling**: Ensure that user-based constraints are applied to the scheduling algorithm.
+5. **Testing**: Conduct thorough testing to validate the functionality of the lottery scheduler.
+
+## Usage
+- Compile the modified Linux kernel with the lottery scheduling algorithm implemented.
+- Boot the system using the modified kernel and create test processes to observe the behavior of the scheduler.
+
+## Acknowledgments
+- The course materials and resources from CSE 331: Operating Systems.
+
