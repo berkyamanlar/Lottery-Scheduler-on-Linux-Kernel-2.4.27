@@ -6,13 +6,13 @@ This project was developed as a term project for the **CSE 331: Operating System
 ## Lottery Scheduling Algorithm Description
 The lottery scheduling algorithm operates as follows:
 
-- When a process is forked, it is assigned an initial number of tickets, defined as **E = 5**.
+- When a process is forked, it is assigned an initial number of tickets, defined as **5**.
 - The scheduler randomly selects a ticket number from the available tickets of runnable processes. The process holding the selected ticket is scheduled to run next.
-- Each process can hold at most **A = 10** tickets and at least **B = 1** ticket.
+- Each process can hold at most **10** tickets and at least **1** ticket.
 - The ticket allocation is dynamic based on the process's CPU usage:
-  - If **C = 10 ms** or less has elapsed since the process last used the CPU, it loses one ticket (unless it already has **B** tickets).
-  - If more than **D = 100 ms** has elapsed, the process gains one ticket (unless it already has **A** tickets).
-  - If the elapsed time is between **C** and **D**, the process retains its current ticket count.
+  - If **10ms** or less has elapsed since the process last used the CPU, it loses one ticket (unless it already has **1** tickets).
+  - If more than **100ms** has elapsed, the process gains one ticket (unless it already has **10** tickets).
+  - If the elapsed time is between **10ms** and **100ms**, the process retains its current ticket count.
 - The assignment of CPU time is limited to users with UIDs greater than 1000 (normal Linux user processes). System users and root can have a higher priority.
 - The scheduler also updates a process's ticket number based on its user's process count changes, using the `setuid()` system call to adjust the process's UID when necessary.
 
